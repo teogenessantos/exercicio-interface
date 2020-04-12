@@ -4,6 +4,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
 
+import model.entities.Contract;
+import model.entities.Installment;
+import model.services.ContractService;
+import model.services.PaypalService;
+
 public class Program {
 
 	public static void main(String[] args) {
@@ -21,12 +26,19 @@ public class Program {
 			date = sdf.parse(sc.next());
 			System.out.print("Contract value: ");
 			totalValue = sc.nextDouble();
+			
+			Contract contract = new Contract(number, date, totalValue);
+			
 			System.out.print("Enter number of installments: ");
 			quantityInstallments = sc.nextInt();
+			
+			ContractService contractService = new ContractService(new PaypalService());
+			contractService.processContract(contract, quantityInstallments);
+			
 			System.out.println("Installments:");
-			System.out.println("25/07/2018 - 206.04");
-			System.out.println("25/08/2018 - 208.08");
-			System.out.println("25/09/2018 - 210.12");
+			for (Installment installment : contract.getListInstallment()) {
+				System.out.println(sdf.format(installment.getDueDate())+" - "+installment.getAmout());
+			}
 		}
 		catch (Exception e) {
 			System.out.println(e.getMessage());

@@ -36,12 +36,15 @@ public class Contract {
 	public void setTotalValue(Double totalValue) {
 		this.totalValue = totalValue;
 	}
+	public List<Installment> getListInstallment() {
+		return listInstallment;
+	}
 	public void addInstallment(Installment installment) {
 		listInstallment.add(installment);
 	}
 	public void removeInstallment(Installment installment) {
 		listInstallment.remove(installment);
 	}
-	
+		
 	
 }
